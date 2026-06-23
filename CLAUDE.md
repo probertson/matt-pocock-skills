@@ -7,7 +7,9 @@ Skills are organized into bucket folders under `skills/`:
 - `in-progress/` — drafts not yet ready to ship
 - `deprecated/` — no longer used
 
-Every skill in `engineering/`, `productivity/`, or `misc/` must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`. Skills in `personal/`, `in-progress/`, and `deprecated/` must not appear in either.
+Every skill in `engineering/` or `productivity/` must have a reference in the top-level `README.md`, an entry in `.claude-plugin/plugin.json` (the install-everything bundle), and a plugin entry in `.claude-plugin/marketplace.json` (the per-skill native install). `misc/` skills are referenced in the top-level `README.md` and their bucket `README.md` but are NOT packaged in `plugin.json` or `marketplace.json` — they are for working on this repo, not general use. Skills in `personal/`, `in-progress/`, and `deprecated/` must not appear in any of them.
+
+In `marketplace.json`, each skill is its own plugin named `mp-<skill>` with `"source": "./"`, `"strict": false`, and a `skills` array pointing at the skill's directory. Skills whose `SKILL.md` invokes another skill via `/name` must declare that skill's plugin in `dependencies` so it is auto-installed. The core-workflow skills that share the issue-tracker and `CONTEXT.md` config `setup-matt-pocock-skills` creates (`setup-matt-pocock-skills`, `triage`, `to-issues`, `to-prd`, `ask-matt`, `grill-with-docs`) ship together in the single `mp-workflow` plugin rather than as separate entries.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
