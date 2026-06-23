@@ -48,7 +48,7 @@ These skills also ship as a native Claude Code plugin marketplace, so you can in
 /plugin install mp-tdd@matt-pocock-skills
 ```
 
-Each skill is its own plugin, prefixed `mp-` (e.g. `mp-grill-me`, `mp-prototype`). The core workflow — `setup-matt-pocock-skills`, `triage`, `to-issues`, `to-prd`, `ask-matt`, `grill-with-docs` — ships as a single plugin, `mp-workflow`, because those skills share the issue-tracker and `CONTEXT.md` config that setup creates. Cross-skill dependencies are pulled in automatically (installing `mp-grill-me` also installs `mp-grilling`).
+Each skill is its own plugin, prefixed `mp-` (e.g. `mp-grill-me`, `mp-prototype`). The core workflow — `setup-matt-pocock-skills`, `triage`, `to-issues`, `to-prd`, `ask-matt`, `grill-with-docs` — ships as a single plugin, `mp-workflow`, because those skills share the issue-tracker and `CONTEXT.md` config that setup creates. Cross-skill dependencies are pulled in automatically (installing `mp-grill-me` also installs `mp-lib-grilling`). Plugins prefixed `mp-lib-` are internal dependencies — installed automatically by the skills that use them, not something you install directly.
 
 Plugin skills are namespaced by their plugin, so you invoke them as `/mp-tdd:tdd`, `/mp-workflow:triage`, and so on — unlike the flat `/tdd` you get from the `npx skills` install above.
 

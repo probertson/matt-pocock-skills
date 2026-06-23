@@ -6,106 +6,106 @@
   "plugins": [
     {
       "name": "mp-workflow",
-      "source": "./",
+      "source": "./skills/engineering",
       "strict": false,
       "description": "The core workflow for building with these skills: one-time setup plus the triage, to-issues, to-prd, ask-matt, and grill-with-docs skills that share the issue-tracker and CONTEXT.md config that setup creates.",
       "skills": [
-        "./skills/engineering/setup-matt-pocock-skills",
-        "./skills/engineering/triage",
-        "./skills/engineering/to-issues",
-        "./skills/engineering/to-prd",
-        "./skills/engineering/ask-matt",
-        "./skills/engineering/grill-with-docs"
+        "./setup-matt-pocock-skills",
+        "./triage",
+        "./to-issues",
+        "./to-prd",
+        "./ask-matt",
+        "./grill-with-docs"
       ],
       "dependencies": [
-        { "name": "mp-grilling" },
-        { "name": "mp-domain-modeling" }
+        { "name": "mp-lib-grilling" },
+        { "name": "mp-lib-domain-modeling" }
       ]
     },
     {
-      "name": "mp-grilling",
-      "source": "./",
+      "name": "mp-lib-grilling",
+      "source": "./skills/productivity/grilling",
       "strict": false,
-      "description": "Interview the user relentlessly about a plan or design until every branch of the decision tree is resolved. The reusable loop behind grill-me and grill-with-docs.",
-      "skills": ["./skills/productivity/grilling"]
+      "description": "Internal dependency — installed automatically with the skills that use it (grill-me, grill-with-docs, and others); no need to install it directly. The reusable loop that interviews the user relentlessly about a plan or design until every branch of the decision tree is resolved.",
+      "skills": ["./"]
     },
     {
-      "name": "mp-domain-modeling",
-      "source": "./",
+      "name": "mp-lib-domain-modeling",
+      "source": "./skills/engineering/domain-modeling",
       "strict": false,
-      "description": "Actively build and sharpen a project's domain model — challenge terms against the glossary, stress-test with edge-case scenarios, and update CONTEXT.md and ADRs inline.",
-      "skills": ["./skills/engineering/domain-modeling"]
+      "description": "Internal dependency — installed automatically with the workflow and architecture skills; no need to install it directly. Actively builds and sharpens a project's domain model: challenge terms against the glossary, stress-test with edge-case scenarios, and update CONTEXT.md and ADRs inline.",
+      "skills": ["./"]
     },
     {
-      "name": "mp-codebase-design",
-      "source": "./",
+      "name": "mp-lib-codebase-design",
+      "source": "./skills/engineering/codebase-design",
       "strict": false,
-      "description": "Shared discipline and vocabulary for designing deep modules: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface.",
-      "skills": ["./skills/engineering/codebase-design"]
+      "description": "Internal dependency — installed automatically with tdd and improve-codebase-architecture; no need to install it directly. Shared discipline and vocabulary for designing deep modules: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface.",
+      "skills": ["./"]
     },
     {
       "name": "mp-grill-me",
-      "source": "./",
+      "source": "./skills/productivity/grill-me",
       "strict": false,
       "description": "Get relentlessly interviewed about a plan or design until every branch of the decision tree is resolved.",
-      "skills": ["./skills/productivity/grill-me"],
-      "dependencies": [{ "name": "mp-grilling" }]
+      "skills": ["./"],
+      "dependencies": [{ "name": "mp-lib-grilling" }]
     },
     {
       "name": "mp-tdd",
-      "source": "./",
+      "source": "./skills/engineering/tdd",
       "strict": false,
       "description": "Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.",
-      "skills": ["./skills/engineering/tdd"],
-      "dependencies": [{ "name": "mp-codebase-design" }]
+      "skills": ["./"],
+      "dependencies": [{ "name": "mp-lib-codebase-design" }]
     },
     {
       "name": "mp-improve-codebase-architecture",
-      "source": "./",
+      "source": "./skills/engineering/improve-codebase-architecture",
       "strict": false,
       "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
-      "skills": ["./skills/engineering/improve-codebase-architecture"],
+      "skills": ["./"],
       "dependencies": [
-        { "name": "mp-domain-modeling" },
-        { "name": "mp-grilling" },
-        { "name": "mp-codebase-design" }
+        { "name": "mp-lib-domain-modeling" },
+        { "name": "mp-lib-grilling" },
+        { "name": "mp-lib-codebase-design" }
       ]
     },
     {
       "name": "mp-diagnosing-bugs",
-      "source": "./",
+      "source": "./skills/engineering/diagnosing-bugs",
       "strict": false,
       "description": "Disciplined diagnosis loop for hard bugs and performance regressions: reproduce -> minimise -> hypothesise -> instrument -> fix -> regression-test.",
-      "skills": ["./skills/engineering/diagnosing-bugs"],
+      "skills": ["./"],
       "dependencies": [{ "name": "mp-improve-codebase-architecture" }]
     },
     {
       "name": "mp-prototype",
-      "source": "./",
+      "source": "./skills/engineering/prototype",
       "strict": false,
       "description": "Build a throwaway prototype to flesh out a design — either a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route.",
-      "skills": ["./skills/engineering/prototype"]
+      "skills": ["./"]
     },
     {
       "name": "mp-handoff",
-      "source": "./",
+      "source": "./skills/productivity/handoff",
       "strict": false,
       "description": "Compact the current conversation into a handoff document so another agent can continue the work.",
-      "skills": ["./skills/productivity/handoff"]
+      "skills": ["./"]
     },
     {
       "name": "mp-teach",
-      "source": "./",
+      "source": "./skills/productivity/teach",
       "strict": false,
       "description": "Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.",
-      "skills": ["./skills/productivity/teach"]
+      "skills": ["./"]
     },
     {
       "name": "mp-writing-great-skills",
-      "source": "./",
+      "source": "./skills/productivity/writing-great-skills",
       "strict": false,
       "description": "Reference for writing and editing skills well: the vocabulary and principles that make a skill predictable.",
-      "skills": ["./skills/productivity/writing-great-skills"]
+      "skills": ["./"]
     }
   ]
 }
