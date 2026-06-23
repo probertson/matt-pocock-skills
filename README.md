@@ -39,6 +39,21 @@ npx skills@latest add mattpocock/skills
 
 4. Bam - you're ready to go.
 
+## Install as a Claude Code plugin
+
+These skills also ship as a native Claude Code plugin marketplace, so you can install just the ones you want from inside Claude Code:
+
+```
+/plugin marketplace add mattpocock/skills
+/plugin install mp-tdd@matt-pocock-skills
+```
+
+Each skill is its own plugin, prefixed `mp-` (e.g. `mp-grill-me`, `mp-prototype`). The core workflow — `setup-matt-pocock-skills`, `triage`, `to-issues`, `to-prd`, `ask-matt`, `grill-with-docs` — ships as a single plugin, `mp-workflow`, because those skills share the issue-tracker and `CONTEXT.md` config that setup creates. Cross-skill dependencies are pulled in automatically (installing `mp-grill-me` also installs `mp-grilling`).
+
+Plugin skills are namespaced by their plugin, so you invoke them as `/mp-tdd:tdd`, `/mp-workflow:triage`, and so on — unlike the flat `/tdd` you get from the `npx skills` install above.
+
+The `misc/` skills are not packaged as plugins — they're for working on this repo, not general use.
+
 ## Why These Skills Exist
 
 I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
