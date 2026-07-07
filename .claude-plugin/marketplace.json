@@ -1,0 +1,125 @@
+{
+  "name": "matt-pocock-skills",
+  "owner": {
+    "name": "Matt Pocock"
+  },
+  "plugins": [
+    {
+      "name": "mp-workflow",
+      "source": "./skills/engineering",
+      "strict": false,
+      "description": "The core workflow for building with these skills: one-time setup plus the triage, to-issues, to-prd, ask-matt, and grill-with-docs skills that share the issue-tracker and CONTEXT.md config that setup creates.",
+      "skills": [
+        "./setup-matt-pocock-skills",
+        "./triage",
+        "./to-issues",
+        "./to-prd",
+        "./ask-matt",
+        "./grill-with-docs"
+      ],
+      "dependencies": [
+        { "name": "mp-lib-grilling" },
+        { "name": "mp-lib-domain-modeling" }
+      ]
+    },
+    {
+      "name": "mp-lib-grilling",
+      "source": "./skills/productivity/grilling",
+      "strict": false,
+      "description": "Internal dependency — installed automatically with the skills that use it (grill-me, grill-with-docs, and others); no need to install it directly. The reusable loop that interviews the user relentlessly about a plan or design until every branch of the decision tree is resolved.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-lib-domain-modeling",
+      "source": "./skills/engineering/domain-modeling",
+      "strict": false,
+      "description": "Internal dependency — installed automatically with the workflow and architecture skills; no need to install it directly. Actively builds and sharpens a project's domain model: challenge terms against the glossary, stress-test with edge-case scenarios, and update CONTEXT.md and ADRs inline.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-lib-codebase-design",
+      "source": "./skills/engineering/codebase-design",
+      "strict": false,
+      "description": "Internal dependency — installed automatically with tdd and improve-codebase-architecture; no need to install it directly. Shared discipline and vocabulary for designing deep modules: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-grill-me",
+      "source": "./skills/productivity/grill-me",
+      "strict": false,
+      "description": "Get relentlessly interviewed about a plan or design until every branch of the decision tree is resolved.",
+      "skills": ["./"],
+      "dependencies": [{ "name": "mp-lib-grilling" }]
+    },
+    {
+      "name": "mp-tdd",
+      "source": "./skills/engineering/tdd",
+      "strict": false,
+      "description": "Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.",
+      "skills": ["./"],
+      "dependencies": [{ "name": "mp-lib-codebase-design" }]
+    },
+    {
+      "name": "mp-improve-codebase-architecture",
+      "source": "./skills/engineering/improve-codebase-architecture",
+      "strict": false,
+      "description": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "skills": ["./"],
+      "dependencies": [
+        { "name": "mp-lib-domain-modeling" },
+        { "name": "mp-lib-grilling" },
+        { "name": "mp-lib-codebase-design" }
+      ]
+    },
+    {
+      "name": "mp-diagnosing-bugs",
+      "source": "./skills/engineering/diagnosing-bugs",
+      "strict": false,
+      "description": "Disciplined diagnosis loop for hard bugs and performance regressions: reproduce -> minimise -> hypothesise -> instrument -> fix -> regression-test.",
+      "skills": ["./"],
+      "dependencies": [{ "name": "mp-improve-codebase-architecture" }]
+    },
+    {
+      "name": "mp-prototype",
+      "source": "./skills/engineering/prototype",
+      "strict": false,
+      "description": "Build a throwaway prototype to flesh out a design — either a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-research",
+      "source": "./skills/engineering/research",
+      "strict": false,
+      "description": "Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-code-review",
+      "source": "./skills/engineering/code-review",
+      "strict": false,
+      "description": "Two-axis review of the diff since a fixed point — Standards (does the code follow the repo's documented standards, plus a Fowler smell baseline?) and Spec (does it faithfully implement the originating issue/PRD?) — run as parallel sub-agents so neither pollutes the other.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-handoff",
+      "source": "./skills/productivity/handoff",
+      "strict": false,
+      "description": "Compact the current conversation into a handoff document so another agent can continue the work.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-teach",
+      "source": "./skills/productivity/teach",
+      "strict": false,
+      "description": "Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.",
+      "skills": ["./"]
+    },
+    {
+      "name": "mp-writing-great-skills",
+      "source": "./skills/productivity/writing-great-skills",
+      "strict": false,
+      "description": "Reference for writing and editing skills well: the vocabulary and principles that make a skill predictable.",
+      "skills": ["./"]
+    }
+  ]
+}

@@ -1,3 +1,24 @@
+# Matt Pocock's skills — Claude Code plugin fork
+
+> **This is a fork of [`mattpocock/skills`](https://github.com/mattpocock/skills), maintained by [@probertson](https://github.com/probertson).** The only thing it adds is a native Claude Code **plugin marketplace** (`.claude-plugin/marketplace.json`) so you can install individual skills as plugins from inside Claude Code — instead of the flat `npx skills` install or the all-or-nothing bundle. Everything from the divider down is Matt's original README, kept verbatim so the fork stays easy to sync with upstream.
+
+## Install as a Claude Code plugin
+
+Add this fork as a plugin marketplace, then install just the skills you want:
+
+```
+/plugin marketplace add probertson/matt-pocock-skills
+/plugin install mp-tdd@matt-pocock-skills
+```
+
+Each skill is its own plugin, prefixed `mp-` (e.g. `mp-grill-me`, `mp-prototype`, `mp-code-review`). The core workflow — `setup-matt-pocock-skills`, `triage`, `to-issues`, `to-prd`, `ask-matt`, `grill-with-docs` — ships as a single plugin, `mp-workflow`, because those skills share the issue-tracker and `CONTEXT.md` config that setup creates. Cross-skill dependencies are pulled in automatically (installing `mp-grill-me` also installs `mp-lib-grilling`). Plugins prefixed `mp-lib-` are internal dependencies — installed automatically by the skills that use them, not something you install directly.
+
+Plugin skills are namespaced by their plugin, so you invoke them as `/mp-tdd:tdd`, `/mp-workflow:triage`, and so on — unlike the flat `/tdd` you get from the `npx skills` install below.
+
+How this fork tracks Matt's upstream repo is documented in [`sync/README.md`](./sync/README.md).
+
+---
+
 <p>
   <a href="https://www.aihero.dev/s/skills-newsletter">
     <picture>
