@@ -21,9 +21,18 @@ No change to the existing plugins' dependency arrays. `plugin.json` (upstream's
 bundle) is taken verbatim. `resolving-merge-conflicts` stays unpackaged (upstream
 excludes it from the bundle too).
 
-**Deliberately excluded — `implement`:** it's in upstream's `plugin.json` bundle
-and even has a docs page, but Matt does **not** list it in his curated README
-Reference. It's a general-purpose skill (not repo-specific), but the marketplace
-mirrors the README (the curated, recommended set), not the fuller bundle — so we
-leave `implement` out, consistent with the fork's prior state. The validator
-emits a warning for it each sync so the exclusion stays a conscious call.
+## Post-sync correction (2026-07-07) — `implement` added via referral closure
+
+This sync originally **excluded** `implement` on the reasoning that the
+marketplace mirrors the README Reference and Matt omits `implement` from it.
+That was wrong: `ask-matt` (which we ship inside `mp-workflow`) presents
+`/implement` as the *central* build step, so a `mp-workflow` user who follows
+`ask-matt`'s advice hits a skill they don't have — a dangling reference.
+
+Fixed by adding a standalone **`mp-implement`** (user-invoked, general-purpose;
+depends on `mp-tdd` + `mp-code-review`, which it orchestrates) and making
+`mp-workflow` **depend on** it so the workflow auto-pulls it. This is now the
+first entry in the marketplace's *referral closure* (README Reference + any skill
+a covered skill hard-routes to); the validator and both `README`/`CLAUDE.md`
+"Fork note" docs were updated to describe it. `implement` no longer appears in
+the validator's bundle-exclusion warnings.

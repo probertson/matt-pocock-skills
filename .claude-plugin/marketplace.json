@@ -19,7 +19,8 @@
       ],
       "dependencies": [
         { "name": "mp-lib-grilling" },
-        { "name": "mp-lib-domain-modeling" }
+        { "name": "mp-lib-domain-modeling" },
+        { "name": "mp-implement" }
       ]
     },
     {
@@ -99,6 +100,14 @@
       "strict": false,
       "description": "Two-axis review of the diff since a fixed point — Standards (does the code follow the repo's documented standards, plus a Fowler smell baseline?) and Spec (does it faithfully implement the originating issue/PRD?) — run as parallel sub-agents so neither pollutes the other.",
       "skills": ["./"]
+    },
+    {
+      "name": "mp-implement",
+      "source": "./skills/engineering/implement",
+      "strict": false,
+      "description": "Implement a PRD or set of issues end-to-end: build in vertical slices by driving tdd at pre-agreed seams, typecheck and test as you go, then close out with a code-review before committing.",
+      "skills": ["./"],
+      "dependencies": [{ "name": "mp-tdd" }, { "name": "mp-code-review" }]
     },
     {
       "name": "mp-handoff",

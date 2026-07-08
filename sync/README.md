@@ -22,17 +22,22 @@ separate `plugin.json`.
 
 ### The core invariant
 
-`marketplace.json` must **mirror the README Reference** — the skills Matt lists
-in his curated, human-facing section (the surface this fork prepends to). Every
-skill in that Reference is reachable through exactly one marketplace plugin, and
-nothing outside it appears. This is deliberately the **README**, not the fuller
-`plugin.json` bundle: Matt sometimes bundles a skill he doesn't surface in the
-README (e.g. `implement`), and we follow the curated recommendation so the two
-human-facing surfaces stay consistent. `node sync/validate-marketplace.mjs`
-enforces the README↔marketplace bijection (plus structural rules) and *warns*
-about any `plugin.json` skill we exclude, so each exclusion stays a conscious
-call. The packaging rules themselves live in the root `CLAUDE.md` "Fork note" —
-read those before editing `marketplace.json`.
+`marketplace.json` must **cover the README Reference plus its referral closure.**
+The README Reference — the skills Matt lists in his curated, human-facing section
+(the surface this fork prepends to) — is the base: every skill in it is reachable
+through exactly one marketplace plugin. On top of that, a skill Matt *omits* from
+the README still ships if a **covered skill hard-routes to it**, because
+otherwise a user who installs the covered skill hits a dangling reference. The
+only such skill today is `implement`: it's absent from the README, but `ask-matt`
+makes `/implement` the central build step, so it ships as a standalone
+`mp-implement` that `mp-workflow` depends on. Anything else in the fuller
+`plugin.json` bundle — neither in the README nor referred to this way — stays
+excluded, so the marketplace remains a subset of the bundle.
+`node sync/validate-marketplace.mjs` enforces this (README coverage + justified
+referral closure, with each referral's referrer required to still point at it,
+plus the structural rules) and *warns* about any `plugin.json` skill we exclude,
+so each call stays conscious. The packaging rules themselves live in the root
+`CLAUDE.md` "Fork note" — read those before editing `marketplace.json`.
 
 ## Prerequisites
 
@@ -82,16 +87,25 @@ fork with upstream" and let it work, confirming the judgment calls in step 5.
    diff for the *what*. Also confirm no already-packaged skill changed its
    cross-skill `/name` invocations (that would change a `dependencies` array).
 
-4. **Decide which skills the marketplace should carry — the README Reference is
-   the authority.** A skill belongs in the marketplace iff Matt lists it in the
-   upstream README's Reference section (his curated recommendation). Two other
-   signals inform, but don't override, that:
+4. **Decide which skills the marketplace should carry — README Reference plus
+   referral closure.** A skill belongs in the marketplace if either: (a) Matt
+   lists it in the upstream README's Reference section (his curated
+   recommendation), **or** (b) some skill you already cover hard-routes to it, so
+   leaving it out would strand that reference (the *referral closure* — see the
+   core invariant). Signals that inform this:
    - `plugin.json` (`git show upstream/main:.claude-plugin/plugin.json`) is the
      fuller machine bundle. A skill in `plugin.json` but **not** in the README is
-     bundle-only (e.g. `implement`) — **exclude it**; the validator will warn so
-     it's a conscious call. A skill in neither (e.g. `resolving-merge-conflicts`)
-     is plainly out.
+     bundle-only — exclude it **unless** it's pulled in by referral closure. The
+     lone current example is `implement`: bundle-only, yet `ask-matt` routes to
+     `/implement`, so it ships as `mp-implement` (a `mp-workflow` dependency). A
+     skill in neither the README nor the bundle (e.g. `resolving-merge-conflicts`)
+     is plainly out. The validator warns on every excluded bundle skill so each
+     exclusion stays conscious.
    - A promoted skill in the README that's new since `$BASE` is one to **add**.
+   - Re-check the referral closure each sync: if a covered skill *gains* a hard
+     `/other-skill` route, `other-skill` may now need to ship; if `ask-matt` (or
+     another referrer) *drops* its `/implement` mention, the validator will fail
+     until you remove the stale exception.
 
 5. **Classify each newly-added skill** (confirm the judgment calls with Paul):
    - **Bucket + invocation mode:** read its `SKILL.md` frontmatter.
@@ -108,7 +122,8 @@ fork with upstream" and let it work, confirming the judgment calls in step 5.
      `mp-lib-<skill>` and open its description with "Internal dependency — …".
 
 6. **Regenerate the fork layer:**
-   - `marketplace.json`: add/remove plugins so it mirrors `plugin.json` exactly.
+   - `marketplace.json`: add/remove plugins so it covers the README Reference plus
+     the referral closure (the validator, not `plugin.json`, is the arbiter).
    - `README.md`: take upstream's README, then **prepend** the fork block above
      it (the block from the `#` heading down to the `---` divider). Never edit
      Matt's body; if the plugin instructions need updating, edit only the block.
@@ -143,4 +158,6 @@ fork with upstream" and let it work, confirming the judgment calls in step 5.
 - **Prepend, don't interleave.** Keeping the README delta as one top block means
   Matt's body is byte-for-byte his, so there's never a README merge conflict.
 - **`plugin.json` is upstream's.** We stopped maintaining a separate bundle the
-  moment Matt shipped his own; the marketplace just mirrors it.
+  moment Matt shipped his own. The marketplace tracks the README Reference (plus
+  referral closure), not the bundle, so it can carry fewer skills than
+  `plugin.json` — the validator warns on each one we leave out.
