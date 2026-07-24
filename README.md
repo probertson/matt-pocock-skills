@@ -1,21 +1,18 @@
-# Matt Pocock's skills — Claude Code plugin fork
+# Matt Pocock's skills — Claude Code plugin fork (superseded, archived)
 
-> **This is a fork of [`mattpocock/skills`](https://github.com/mattpocock/skills), maintained by [@probertson](https://github.com/probertson).** The only thing it adds is a native Claude Code **plugin marketplace** (`.claude-plugin/marketplace.json`) so you can install individual skills as plugins from inside Claude Code — instead of the flat `npx skills` install or the all-or-nothing bundle. Everything from the divider down is Matt's original README, kept verbatim so the fork stays easy to sync with upstream.
-
-## Install as a Claude Code plugin
-
-Add this fork as a plugin marketplace, then install just the skills you want:
-
-```
-/plugin marketplace add probertson/matt-pocock-skills
-/plugin install mp-tdd@matt-pocock-skills
-```
-
-Each skill is its own plugin, prefixed `mp-` (e.g. `mp-grill-me`, `mp-prototype`, `mp-code-review`). The core workflow — `setup-matt-pocock-skills`, `triage`, `to-issues`, `to-prd`, `ask-matt`, `grill-with-docs` — ships as a single plugin, `mp-workflow`, because those skills share the issue-tracker and `CONTEXT.md` config that setup creates. Cross-skill dependencies are pulled in automatically (installing `mp-grill-me` also installs `mp-lib-grilling`). Plugins prefixed `mp-lib-` are internal dependencies — installed automatically by the skills that use them, not something you install directly.
-
-Plugin skills are namespaced by their plugin, so you invoke them as `/mp-tdd:tdd`, `/mp-workflow:triage`, and so on — unlike the flat `/tdd` you get from the `npx skills` install below.
-
-How this fork tracks Matt's upstream repo is documented in [`sync/README.md`](./sync/README.md).
+> [!IMPORTANT]
+> **This fork is superseded — install from [`mattpocock/skills`](https://github.com/mattpocock/skills) directly.**
+>
+> This fork existed for one reason: it added a native Claude Code **plugin marketplace** (`.claude-plugin/marketplace.json`) back when upstream had none. Upstream now ships its own plugin marketplace, so that job is done:
+>
+> ```
+> /plugin marketplace add mattpocock/skills
+> /plugin install mattpocock-skills@mattpocock
+> ```
+>
+> The one thing this fork still did that upstream's doesn't is **per-skill install** (`mp-tdd`, `mp-code-review`, …) rather than the all-or-nothing bundle. That granularity wasn't worth the ongoing cost of tracking an actively-developed upstream, so the repo is now **archived (read-only)**. The marketplace here will not be kept current with Matt's skills — point Claude Code at upstream instead.
+>
+> Everything from the divider down is Matt's original README, kept verbatim.
 
 ---
 
